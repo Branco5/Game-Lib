@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html lang="pt">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    
+	<link rel="stylesheet" href="styles/estilos.css">
+    <script src="./scripts/Game.js"></script> 
+    <script src="./scripts/Database.js"></script>
+    <script src="./scripts/Games.js"></script>
+    <script src="./scripts/Controller.js"></script>
+    
+    <title>Game Lib</title>
+</head>
+
+<body>
+    <header>
+        <img src="./images/gamelogo.png" alt="game pad">
+        <section>
+            <h1> Game Library</h1>
+        </section>
+        
+    </header>
+    <div id="nav">    
+        <nav id="filters">
+            <label for="platform" style="margin-top: 20px;">Platform: </label>
+            <select name = "platform" id = "platform" onchange="games.filter()">
+                <option value="all">All</option>
+                <option value="pc">PC</option>
+                <option value="playstation">Playstation</option>
+                <option value="xbox">Xbox</option>
+                <option value="nintendo">Nintendo DS</option>
+            </select>
+            <label for="genre">Genre: </label>
+            <select name = "genre" id = "genre" onchange="games.filter()">
+                <option value="all">All</option>
+                <option value="cars">Cars</option>
+                <option value="rpg">RPG</option>
+                <option value="fps">FPS</option>
+                <option value="strategy">Strategy</option>
+                <option value="adventure">Adventure</option>
+                <option value="sport">Sport</option>
+            </select>
+            <label for="price">Price</label>
+            <select name = "price" id = "price" onchange="games.sortByPrice()">
+                <option value="none">None</option>
+                <option value="descending">Descending</option>
+                <option value="ascending">Ascending</option>
+            </select>            
+        </nav> 
+        <input id="reset" type="button" value="Reset Filters" onclick="games.resetFilters()" style="margin-bottom: 5px;"></input>    
+        <button onclick = "openAddGameForm()">Add Game</button>   
+    </div>
+    <main id = "main">  
+        <div id="general"></div>      
+            <nav id = "searchInput">
+                <input type="text" id="search" placeholder="Search by name...">
+                <input id="search" type="button" value="search" onClick="games.filter()">
+            </nav>
+            <div id ="games"></div>
+            <div id = "gameNav">
+                <input class="navButton" type="button" value="<< prev" onClick="games.showPrev()">            
+                <input class="navButton" type="button" value="next >>" onClick="games.showNext()"> 
+            </div>  
+        </div> 
+             
+    </main>
+    <form id="addGameForm" action="javascript:submitGame();" style = "display:none;">
+        <fieldset>
+            <legend>Add Game</legend>
+            <label for="title">Title:</label>
+            <input name="title" type="text" required> 
+            <br>
+            <label for="genre">Genre:</label>
+            <select name = "genre" id = "genre">
+                <option value="mmo">MMO</option>
+                <option value="rpg">RPG</option>
+                <option value="fps">FPS</option>
+                <option value="strategy">Strategy</option>
+                <option value="adventure">Adventure</option>
+                <option value="sport">Sport</option>
+            </select>
+            <br>
+            <div id = "platformChecks">
+                <label for="platforms">Platforms:</label>
+                <br>
+                <input type="checkbox" value = "PC"> PC
+                <br>
+                <input type="checkbox" value = "Playstation"> Playstation
+                <br>
+                <input type="checkbox" value = "Xbox"> Xbox
+                <br>
+                <input type="checkbox" value = "Nintendo"> Nintendo
+                <br>
+            </div>
+            <label for="release">Release Year:</label>
+            <input id="release" type="number">
+            <br>
+            <label for="imgurl">Image Url:</label>
+            <input id="imgurl" type="text"><span>  (ex: ./images/rdr.jpg)</span></input>
+            <br>
+            <label for="price">Price:</label>
+            <input id="price" type="number"> €
+            <br>
+            <input type="submit" value="Add">
+            <input type="reset" value="Reset">
+            <a href="javascript:closeAddGameForm()">Go Back</a>
+        </fieldset>
+    </form>
+    <div id="details" style = "display:none;">
+        <div id="details-header">
+            <div id="details-title"></div> 
+            <button id="close-details" onclick="closeGameDetails()">&times;</button>
+        </div>        
+        <div id="details-body"></div>
+    </div>
+    <div id="overlay"></div>
+    <footer>
+        <p style="color:white"> Contacte-nos <a style="color:lightblue" href="mailto:gamelib@gmail.com">gamelib@gmail.com</a></p>
+    </footer>
+</body>
+</html>
